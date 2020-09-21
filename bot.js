@@ -28,6 +28,11 @@ client.on('message', async message => {
   if(client.user.id === message.author.id) {
 setInterval(() => {
 db.delete(`message_${message.guild.id}_sad_${message.author.id}`)
+  
+    let messages = message.channel.fetchMessages();
+  message.channel.bulkDelete(messages.filter(msj => msj.author.id === client.user.id).array().slice(0, Number(settings.deletemessage)))
+  
+  
     message.bulkDelete(settings.deletemessage)
 }, settings.second+settings.numbers);
   
